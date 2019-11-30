@@ -1,0 +1,28 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+
+
+<!--node Thymio-II Robot 01-->
+<node name="Thymio-II Robot 01" nodeId="{129d4096-1bc0-4947-9491-7ac5d00f297e}"><![CDATA[var accTampon0[4] = 0,0,0,0
+var accTamponPos0 = 0
+var accTampon1[4] = 0,0,0,0
+var accTamponPos1 = 0
+var sumacc0
+var sumacc1
+
+onevent acc
+  accTampon0[accTamponPos0] = acc[0]-2  #measure lateral tilt
+  accTamponPos0 = (accTamponPos0 + 1) % 4
+  sumacc0 = accTampon0[0] + accTampon0[1] + accTampon0[2] + accTampon0[3]
+  accTampon1[accTamponPos1] = acc[1]     #measure front tilt
+  accTamponPos1 = (accTamponPos1 + 1) % 4
+  sumacc1 = accTampon1[0] + accTampon1[1] + accTampon1[2] + accTampon1[3]
+
+  motor.left.target=sumacc0*15+sumacc1*15    # acc0 gives rotation, acc1 gives forward movement
+  motor.right.target=-sumacc0*15+sumacc1*15]]></node>
+
+
+</network>
